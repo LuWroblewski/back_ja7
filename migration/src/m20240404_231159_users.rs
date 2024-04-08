@@ -23,8 +23,8 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Users::LastName).string().not_null())
                     .col(ColumnDef::new(Users::Email).string().not_null())
                     .col(ColumnDef::new(Users::Password).string().not_null())
-                    .col(ColumnDef::new(Users::Status).string().not_null())
-                    .col(ColumnDef::new(Users::Role).boolean().not_null())
+                    .col(ColumnDef::new(Users::Status).boolean().not_null())
+                    .col(ColumnDef::new(Users::Role).string().not_null())
                     .col(
                         ColumnDef::new(Users::DateCreate)
                             .timestamp_with_time_zone()
