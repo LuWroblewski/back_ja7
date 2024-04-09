@@ -1,4 +1,5 @@
 use axum::{
+    extract::Path,
     http::StatusCode,
     response::{IntoResponse, Json},
 };
@@ -13,7 +14,6 @@ use validator::Validate;
 
 #[derive(Debug, Serialize, Deserialize, Validate)]
 pub struct UserData {
-    id: u32,
     first_name: String,
     last_name: String,
     #[validate(email(message = "email inválido"))]
@@ -24,7 +24,7 @@ pub struct UserData {
     role: String,
 }
 
-pub async fn put_user(Json(payload): Json<UserData>) -> impl IntoResponse {
+pub async fn put_user(Path(id): Path<u32>, Json(payload): Json<UserData>) -> impl IntoResponse {
     match payload.validate() {
         Ok(_) => {
             let data: UserData = payload;
@@ -39,13 +39,15 @@ pub async fn put_user(Json(payload): Json<UserData>) -> impl IntoResponse {
             let salt: u32 = 10;
             let password: &String = &data.password;
             let hashed_password: String = hash(password, salt).unwrap();
-            update_user(&data, hashed_password.clone()).await.unwrap();
+            update_user(&data, hashed_password.clone(), id)
+                .await
+                .unwrap();
 
             return (
-                StatusCode::CREATED,
+                StatusCode::OK,
                 Json(json!({
                   "status": "200",
-                  "message": "Usuário criado com sucesso",
+                  "message": "Usuário atualizado com sucesso",
                   "user":{
                      "first_name": data.first_name,
                      "last_name": data.last_name,
@@ -67,6 +69,7 @@ pub async fn put_user(Json(payload): Json<UserData>) -> impl IntoResponse {
 async fn update_user(
     data: &UserData,
     hashed_password: String,
+    id: u32,
 ) -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
 
@@ -76,7 +79,7 @@ async fn update_user(
     let db: DatabaseConnection = Database::connect(database_url).await.unwrap();
 
     let mut users: users::ActiveModel = users::Entity::find()
-        .filter(entity::users::Column::Id.eq(data.id.clone()))
+        .filter(entity::users::Column::Id.eq(id))
         .one(&db)
         .await
         .unwrap()
