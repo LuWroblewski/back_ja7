@@ -10,30 +10,27 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Users::Table)
+                    .table(Files::Table)
                     .if_not_exists()
                     .col(
-                        ColumnDef::new(Users::Id)
+                        ColumnDef::new(Files::Id)
                             .integer()
                             .not_null()
                             .auto_increment()
                             .primary_key()
                             .unique_key(),
                     )
-                    .col(ColumnDef::new(Users::FirstName).string().not_null())
-                    .col(ColumnDef::new(Users::LastName).string().not_null())
-                    .col(ColumnDef::new(Users::Email).string().not_null())
-                    .col(ColumnDef::new(Users::Password).string().not_null())
-                    .col(ColumnDef::new(Users::Status).boolean().not_null())
-                    .col(ColumnDef::new(Users::Role).string().not_null())
+                    .col(ColumnDef::new(Files::TitleBd).string().not_null())
+                    .col(ColumnDef::new(Files::TitleUser).string().not_null())
+                    .col(ColumnDef::new(Files::Link).string().not_null())
                     .col(
-                        ColumnDef::new(Users::DateCreate)
+                        ColumnDef::new(Files::DateCreate)
                             .timestamp_with_time_zone()
                             .not_null()
                             .default(Utc::now().to_string()),
                     )
                     .col(
-                        ColumnDef::new(Users::DateLastUpdate)
+                        ColumnDef::new(Files::DateLastUpdate)
                             .timestamp_with_time_zone()
                             .not_null()
                             .default(Utc::now().to_string()),
@@ -45,15 +42,12 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-pub enum Users {
+pub enum Files {
     Table,
     Id,
-    FirstName,
-    LastName,
-    Email,
-    Password,
-    Status,
-    Role,
+    TitleBd,
+    TitleUser,
+    Link,
     DateCreate,
     DateLastUpdate,
 }
