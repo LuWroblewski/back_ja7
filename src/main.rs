@@ -1,4 +1,4 @@
-use axum::{middleware, routing::get, routing::post, Router};
+use axum::{routing::get, routing::post, Router};
 use tokio::net::TcpListener;
 
 use back_ja7::middlewares::jwt_auth::jwt_auth;
@@ -22,7 +22,7 @@ async fn main() {
         .route("/users/:id", get(get_user).put(put_user).delete(del_user))
         .route("/auth", post(login));
 
-    let listener: TcpListener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+    let listener: TcpListener = tokio::net::TcpListener::bind("127.0.0.1:3001")
         .await
         .unwrap();
     println!("listening on {}", listener.local_addr().unwrap());

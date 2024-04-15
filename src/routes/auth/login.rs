@@ -33,10 +33,18 @@ pub async fn login(Json(payload): Json<UserAuth>) -> impl IntoResponse {
         .unwrap()
         .into();
 
-    let password = user.password.unwrap();
-    let email = user.email.unwrap();
-    let first_name = user.first_name.unwrap();
-    let last_name = user.last_name.unwrap();
+    let password: String = user.password.unwrap();
+    let email: String = user.email.unwrap();
+    let first_name: String = user.first_name.unwrap();
+    let last_name: String = user.last_name.unwrap();
+    let status: bool = user.status.unwrap();
+
+    if status == false {
+        return (
+            StatusCode::BAD_REQUEST,
+            Json(json!({ "message": "O usuario está desativado" })),
+        );
+    }
 
     let id = user.id.unwrap();
 
