@@ -3,7 +3,7 @@ use axum::{routing::get, routing::post, Router};
 use tokio::net::TcpListener;
 use tower_http::cors::{Any, CorsLayer};
 
-use back_ja7::middlewares::jwt_auth::jwt_auth;
+//use back_ja7::middlewares::jwt_auth::jwt_auth;
 use back_ja7::routes::auth::login::login;
 use back_ja7::routes::users::del_user::del_user;
 use back_ja7::routes::users::get_all_users::get_all_users;
