@@ -39,6 +39,7 @@ pub async fn get_user(Path(id): Path<u32>) -> (StatusCode, Json<serde_json::Valu
                 "first_name": user.first_name,
                 "last_name": user.last_name,
                 "email": user.email,
+                "password": user.password,
                 "status": user.status,
                 "role": user.role,
                 "date_create": user.date_create,

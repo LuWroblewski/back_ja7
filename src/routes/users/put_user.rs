@@ -36,9 +36,17 @@ pub async fn put_user(Path(id): Path<u32>, Json(payload): Json<UserData>) -> imp
                 );
             }
 
-            let salt: u32 = 10;
-            let password: &String = &data.password;
-            let hashed_password: String = hash(password, salt).unwrap();
+            let hashed_password: String;
+
+            if data.password.starts_with("$2b$") {
+                println!("Senha já está criptografada!");
+
+                hashed_password = data.password.clone();
+            } else {
+                let salt: u32 = 10;
+                hashed_password = hash(data.password.clone(), salt).unwrap();
+            }
+
             update_user(&data, hashed_password.clone(), id)
                 .await
                 .unwrap();
