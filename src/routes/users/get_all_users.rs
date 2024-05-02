@@ -26,7 +26,6 @@ pub async fn get_all_users() -> impl IntoResponse {
 
     let db: DatabaseConnection = Database::connect(database_url).await.unwrap();
 
-    // Fetch users as UserModels
     let users: Vec<UserModel> = users::Entity::find()
         .all(&db)
         .await
