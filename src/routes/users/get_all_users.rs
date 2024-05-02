@@ -4,19 +4,8 @@ use dotenv::dotenv;
 use entity::users::{self, Model as UserModel};
 use sea_orm::Database;
 use sea_orm::{DatabaseConnection, EntityTrait};
-use serde::{Deserialize, Serialize};
 use serde_json::json;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct UserData {
-    id: String,
-    first_name: String,
-    last_name: String,
-    email: String,
-    password: String,
-    status: bool,
-    role: String,
-}
 
 pub async fn get_all_users() -> impl IntoResponse {
     dotenv().ok();
