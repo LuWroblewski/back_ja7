@@ -3,16 +3,13 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "users")]
+#[sea_orm(table_name = "files")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub first_name: String,
-    pub last_name: String,
-    pub email: String,
-    pub password: String,
-    pub status: bool,
-    pub role: String,
+    pub title_bd: String,
+    pub title_user: String,
+    pub link: String,
     pub date_create: DateTimeWithTimeZone,
     pub date_last_update: DateTimeWithTimeZone,
 }

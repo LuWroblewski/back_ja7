@@ -2,4 +2,6 @@
 
 pub mod prelude;
 
+pub mod files;
+pub mod petitions;
 pub mod users;
