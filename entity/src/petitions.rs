@@ -11,7 +11,7 @@ pub struct Model {
     pub title: String,
     pub theme: String,
     pub type_petition: String,
-    pub status: bool,
+    pub status: String,
     pub file_id: i32,
     pub date_create: DateTimeWithTimeZone,
     pub user_last_update: i32,

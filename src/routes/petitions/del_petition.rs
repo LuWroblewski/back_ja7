@@ -8,7 +8,7 @@ use serde_json::json;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PetitionData {
-    status: bool,
+    status: String,
 }
 
 pub async fn del_petition(
@@ -36,10 +36,11 @@ pub async fn del_petition(
 
     petitions.update(&db).await.unwrap();
 
-    let message: &str = match data.status {
-        true => "Petição ativada",
-        false => "Petição desativada",
-    };
-
-    return (StatusCode::OK, Json(json!({ "message": message })));
+    return (
+        StatusCode::OK,
+        Json(json!({
+            "status": "200",
+            "message": "Petição excluida com sucesso",
+        })),
+    );
 }

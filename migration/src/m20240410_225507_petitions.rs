@@ -26,7 +26,7 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Petitions::Title).string().not_null())
                     .col(ColumnDef::new(Petitions::Theme).string().not_null())
                     .col(ColumnDef::new(Petitions::TypePetition).string().not_null())
-                    .col(ColumnDef::new(Petitions::Status).boolean().not_null())
+                    .col(ColumnDef::new(Petitions::Status).string().not_null())
                     .col(ColumnDef::new(Petitions::FileId).integer().not_null())
                     .foreign_key(
                         ForeignKey::create()

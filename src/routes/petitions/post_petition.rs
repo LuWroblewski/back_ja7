@@ -15,7 +15,7 @@ pub struct PetitionData {
     title: String,
     theme: String,
     type_petition: String,
-    status: bool,
+    status: String,
     file_id: i32,
     user_last_update: i32,
 }
