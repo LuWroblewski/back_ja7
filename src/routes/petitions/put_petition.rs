@@ -56,7 +56,7 @@ async fn update_user(data: &PetitionData, id: u32) -> Result<(), Box<dyn std::er
     let db: DatabaseConnection = Database::connect(database_url).await.unwrap();
 
     let mut petitions: petitions::ActiveModel = petitions::Entity::find()
-        .filter(entity::users::Column::Id.eq(id))
+        .filter(entity::petitions::Column::Id.eq(id))
         .one(&db)
         .await
         .unwrap()

@@ -52,9 +52,10 @@ pub async fn get_petition(Path(id): Path<u32>) -> (StatusCode, Json<serde_json::
 
     return (
         StatusCode::OK,
-        Json(json!({ 
-    "status": "200",
-    "message": "Petição carregada com sucesso.", 
-    "record": serialized_data })),
+        Json(json!({
+            "status": "200",
+            "message": "Petição carregada com sucesso.",
+            "record": serialized_data
+        })),
     );
 }

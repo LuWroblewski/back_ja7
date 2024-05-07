@@ -9,7 +9,7 @@ members = [".", "entity", "migration"]
 [dependencies]
 entity = { path = "entity" }
 migration = { path = "migration" }
-axum = "0.7.5"
+axum = {version = "0.7.5", features = ["multipart"] }
 bcrypt = "0.15.1"
 chrono = "0.4.37"
 dotenv = "0.15.0"
@@ -20,3 +20,7 @@ tokio = {version = "1.37.0", features = ["full"] }
 validator = {version = "0.18.0", features = ["derive"] }
 jsonwebtoken = "9.3.0"
 tower-http = { version = "0.5.2", features = ["cors"] }
+tokio-util = { version =  "0.7.10", features = ["io"] }
+tracing-subscriber = "0.3.18"
+tracing = "0.1.40"
+futures = "0.3.30"
