@@ -1,3 +1,4 @@
+use axum::http::StatusCode;
 use axum::http::{self, header};
 use axum::{routing::get, routing::post, Router};
 use tokio::net::TcpListener;
@@ -17,6 +18,17 @@ use back_ja7::routes::petitions::get_all_petitions::get_all_petitions;
 use back_ja7::routes::petitions::get_petition::get_petition;
 use back_ja7::routes::petitions::post_petition::post_petition;
 use back_ja7::routes::petitions::put_petition::put_petition;
+
+async fn health_check() -> (StatusCode, String) {
+    let health = true;
+    match health {
+        true => (StatusCode::OK, "Healthy!".to_string()),
+        false => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "Not healthy!".to_string(),
+        ),
+    }
+}
 
 #[tokio::main]
 async fn main() {
@@ -41,6 +53,7 @@ async fn main() {
             "/petitions/:id",
             get(get_petition).put(put_petition).delete(del_petition),
         )
+        .route("/health", get(health_check))
         .layer(cors);
 
     let listener: TcpListener = tokio::net::TcpListener::bind("0.0.0.0:3001").await.unwrap();
