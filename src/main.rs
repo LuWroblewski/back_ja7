@@ -56,7 +56,7 @@ async fn main() {
         .route("/health", get(health_check))
         .layer(cors);
 
-    let listener: TcpListener = tokio::net::TcpListener::bind("0.0.0.0:3001").await.unwrap();
+    let listener: TcpListener = tokio::net::TcpListener::bind("0.0.0.0:80").await.unwrap();
     println!("listening on {}", listener.local_addr().unwrap());
     axum::serve(listener, app).await.unwrap();
 }

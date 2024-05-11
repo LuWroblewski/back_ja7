@@ -3,11 +3,6 @@ name = "back_ja7"
 version = "0.1.0"
 edition = "2021"
 
-[[bin]]
-name = "backja"
-path = "src/main.rs"
-
-
 [workspace]
 members = [".", "entity", "migration"]
 
