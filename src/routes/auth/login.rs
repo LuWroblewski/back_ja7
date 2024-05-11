@@ -33,11 +33,12 @@ pub async fn login(Json(payload): Json<UserAuth>) -> impl IntoResponse {
         .unwrap()
         .into();
 
-    let password: String = user.password.unwrap();
-    let email: String = user.email.unwrap();
     let first_name: String = user.first_name.unwrap();
     let last_name: String = user.last_name.unwrap();
+    let email: String = user.email.unwrap();
+    let password: String = user.password.unwrap();
     let status: bool = user.status.unwrap();
+    let role: String = user.role.unwrap();
 
     if status == false {
         return (
@@ -46,12 +47,12 @@ pub async fn login(Json(payload): Json<UserAuth>) -> impl IntoResponse {
         );
     }
 
-    let id = user.id.unwrap();
+    let id: i32 = user.id.unwrap();
 
-    let valid = verify(data.password, &password).unwrap();
+    let valid: bool = verify(data.password, &password).unwrap();
 
     if valid == true {
-        let secret_key =
+        let secret_key: String =
             std::env::var("JWT_SECRET").expect("JWT_SECRET environment variable not found");
         let key = EncodingKey::from_secret(secret_key.as_bytes());
 
@@ -60,7 +61,7 @@ pub async fn login(Json(payload): Json<UserAuth>) -> impl IntoResponse {
         "email": email,
         });
 
-        let token = encode(&jsonwebtoken::Header::default(), &claims, &key).unwrap();
+        let token: String = encode(&jsonwebtoken::Header::default(), &claims, &key).unwrap();
 
         return (
             StatusCode::OK,
@@ -72,6 +73,7 @@ pub async fn login(Json(payload): Json<UserAuth>) -> impl IntoResponse {
                     "first_name": first_name,
                     "last_name": last_name,
                     "email": email,
+                    "role": role,
                },
             "token": token
             })),
